@@ -1,0 +1,40 @@
+apply plugin: 'idea'
+apply from: 'gradle/credentials.gradle'
+apply from: 'gradle/compile.gradle'
+apply from: 'gradle/publishing.gradle'
+apply from: 'gradle/bintray.gradle'
+apply from: 'gradle/artifactory.gradle'
+
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.5'
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:2.2.5'
+    }
+}
+
+
+repositories {
+    jcenter()
+    mavenLocal()
+}
+
+
+dependencies {
+    compile localGroovy()
+    compile gradleApi()
+
+    compile 'au.org.trogdor.xamarin-gradle-plugins:xamarin-build-plugin:0.1-iHomeAutomate'
+}
+
+group='eu.ihomeautomate.gradle'
+version='0.1.0'
+
+task release {
+    description = "Releases a version of the plugin on Artifactory and Bintray"
+    dependsOn artifactoryPublish, bintrayUpload
+}
+
