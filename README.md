@@ -8,8 +8,7 @@ To use the HomeSeer plugin, include in your build script:
 
     apply plugin: 'homeseer'
 
-The plugin JAR needs to be defined in the classpath of your build script. It is directly available on
-[BinTray](https://bintray.com/ihomeautomate/Gradle-Plugins/gradle-homeseer-plugin/view).
+The plugin JAR needs to be defined in the classpath of your build script. It is directly available on [BinTray](https://bintray.com/ihomeautomate/Gradle-Plugins/gradle-homeseer-plugin/view).
 Alternatively, you can download it from GitHub and deploy it to your local repository. The following code snippet shows an
 example on how to retrieve it from jcenter():
 

@@ -3,7 +3,6 @@ apply from: 'gradle/credentials.gradle'
 apply from: 'gradle/compile.gradle'
 apply from: 'gradle/publishing.gradle'
 apply from: 'gradle/bintray.gradle'
-apply from: 'gradle/artifactory.gradle'
 
 buildscript {
     repositories {
@@ -32,11 +31,6 @@ dependencies {
 
 group='eu.ihomeautomate.gradle'
 version='0.1.0'
-
-task release {
-    description = "Releases a version of the plugin on Artifactory and Bintray"
-    dependsOn artifactoryPublish, bintrayUpload
-}
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.0'
