@@ -38,3 +38,7 @@ task release {
     dependsOn artifactoryPublish, bintrayUpload
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
+
