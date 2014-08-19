@@ -1,6 +1,6 @@
 # Gradle HomeSeer plugin ![HomeSeer Logo](https://lh5.googleusercontent.com/-ouDt6liIFbo/AAAAAAAAAAI/AAAAAAAAAgA/f-7s9hTpPzw/photo.jpg?sz=20)
 
-The plugin provides tasks for downloading and managing [HomeSeer SDK](http://homeseer.com/support/homeseer/HS3/SDK/default.htm) projects in any given Gradle build.
+The plugin provides tasks for downloading [HomeSeer SDK](http://homeseer.com/support/homeseer/HS3/SDK/default.htm) versions and managing HomeSeer (plugin) projects.
 
 ## Usage
 
