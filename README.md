@@ -22,6 +22,22 @@ example on how to retrieve it from jcenter():
         }
     }
 
+In case you want to use SNAPSHOT builds add the [JFrog OSS snapshot repository](https://oss.jfrog.org/oss-snapshot-local/) to your repositories:
+    
+    buildscript {
+        repositories {
+            maven {
+                    name 'JFrog OSS snapshot repository'
+                    url  'https://oss.jfrog.org/oss-snapshot-local/'
+            }
+            jcenter()
+        }
+
+        dependencies {
+            classpath 'eu.ihomeautomate.gradle:gradle-homeseer-plugin:0.1.1-SNAPSHOT'
+        }
+    }
+
 The plugin allows you to customize the HomeSeer SDK to download and use. By default it takes `hs3_linux_3_0_0_94` (current version).
 Specify the target directory where the necessary HomeSeer SDK binary references are copied to by using `sdkReferencesTargetDirectory`, relative to the project directory.
 
