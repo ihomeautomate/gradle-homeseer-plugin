@@ -31,9 +31,6 @@ dependencies {
     compile 'au.org.trogdor.xamarin-gradle-plugins:xamarin-build-plugin:0.1-iHomeAutomate'
 }
 
-group='eu.ihomeautomate.gradle'
-version='0.1.1-SNAPSHOT'
-
 task release {
     description = "Releases a version of the plugin on Artifactory and Bintray"
     dependsOn artifactoryPublish, bintrayUpload

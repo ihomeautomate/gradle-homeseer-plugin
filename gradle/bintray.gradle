@@ -2,6 +2,8 @@
 
 apply plugin: 'com.jfrog.bintray'
 
+def attr = { String name -> project."$name" }
+
 bintray {
     user = bintrayUser
     key = bintrayKey
@@ -11,9 +13,9 @@ bintray {
     pkg {
         repo = 'Gradle-Plugins'
         name = 'gradle-homeseer-plugin'
-        desc = 'The plugin provides tasks for downloading and managing HomeSeer SDK projects in any given Gradle build.'
-        websiteUrl = 'https://github.com/ihomeautomate/gradle-homeseer-plugin'
-        issueTrackerUrl = 'https://github.com/ihomeautomate/gradle-homeseer-plugin/issues'
+        desc = attr 'project_description'
+        websiteUrl = attr 'project_url'
+        issueTrackerUrl = attr 'project_issues_url'
         vcsUrl = 'https://github.com/ihomeautomate/gradle-homeseer-plugin.git'
         licenses = ['Apache-2.0']
         labels = ['C#', 'Mono', 'HomeSeer', 'Gradle']
@@ -21,8 +23,8 @@ bintray {
         attributes= ['More info': 'http://www.ihomeautomate.eu']
 
         version {
-            name = '0.1.0'
-            vcsTag = '0.1.0'
+            name = attr 'version'
+            vcsTag = attr 'version'
             attributes = ['More info': 'http://www.ihomeautomate.eu']
         }
     }
