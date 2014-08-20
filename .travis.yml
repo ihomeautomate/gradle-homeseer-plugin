@@ -8,5 +8,7 @@ jdk:
 env:
   global:
   - TERM=dumb
+  # bintray user
   - secure: "CgYerzz29ZkJ/H7lKaGMxgGUNn3PhAeqhQ+5JTqHB1x80fCSDvqfGcwUNNsSCqT0oUJhbqW6Jz/zUd1nfwGyo2h1UqIo1N+9pML5DSus7SSgRrHBNyQxGFkAZLT9TNod4fmL6Kzy9if5zCELGaREASOd0D3z/6qCnt4TLJDhASs="
+  # bintray key
   - secure: "NIqetZ6TbtLBVlAY5QwhJcyAJf2kUaP9uoG8EeK0mHNYtnlLZEi1XWwFhJgabxeNUkrgJbgMmGeisESC0+YCZ93QjGoZDueDFdBh+poZapHhSeDqce8Igs0fvdjsIeSqRKGoDLQcosr38vo/TSq+xTRlC+y30/T6QHzxkyr220g="
