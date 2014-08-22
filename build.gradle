@@ -8,7 +8,7 @@ apply from: 'gradle/license.gradle'
 
 buildscript {
     repositories {
-        mavenLocal()
+//        mavenLocal()
         jcenter()
     }
     dependencies {
@@ -19,8 +19,13 @@ buildscript {
 }
 
 repositories {
+    maven { /* For use of snapshots */
+        name 'JFrog OSS snapshot repo'
+        url  'https://oss.jfrog.org/oss-snapshot-local/'
+    }
+
     jcenter()
-    mavenLocal()
+    //mavenLocal()
 }
 
 
@@ -28,7 +33,7 @@ dependencies {
     compile localGroovy()
     compile gradleApi()
 
-    compile 'au.org.trogdor.xamarin-gradle-plugins:xamarin-build-plugin:0.1-iHomeAutomate'
+    compile 'eu.ihomeautomate.gradle:gradle-xamarin-build-plugin:1.0.0-SNAPSHOT'
 }
 
 task release {
@@ -39,4 +44,9 @@ task release {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.0'
 }
+
+//task showClasspath << {
+//    buildscript.configurations.classpath.each { println it }
+//    configurations.runtime.each { println it }
+//}
 
