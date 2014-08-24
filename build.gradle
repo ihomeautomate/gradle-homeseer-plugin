@@ -19,11 +19,10 @@ buildscript {
 }
 
 repositories {
-    maven { /* For use of snapshots */
-        name 'JFrog OSS snapshot repo'
-        url  'https://oss.jfrog.org/oss-snapshot-local/'
-    }
-
+//    maven { /* For use of snapshots */
+//        name 'JFrog OSS snapshot repo'
+//        url  'https://oss.jfrog.org/oss-snapshot-local/'
+//    }
     jcenter()
     //mavenLocal()
 }
@@ -33,7 +32,7 @@ dependencies {
     compile localGroovy()
     compile gradleApi()
 
-    compile 'eu.ihomeautomate.gradle:gradle-xamarin-build-plugin:1.0.0-SNAPSHOT'
+    compile 'eu.ihomeautomate.gradle:gradle-xamarin-build-plugin:1.0.0'
 }
 
 task release {
