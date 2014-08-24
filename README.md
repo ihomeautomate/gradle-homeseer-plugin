@@ -6,7 +6,7 @@ The plugin provides tasks for downloading [HomeSeer SDK](http://homeseer.com/sup
 
 To use the HomeSeer plugin, include in your build script:
 
-    apply plugin: 'homeseer'
+    apply plugin: 'eu.ihomeautomate.gradle.homeseer'
 
 The plugin JAR needs to be defined in the classpath of your build script. It is directly available on [BinTray](https://bintray.com/ihomeautomate/Gradle-Plugins/gradle-homeseer-plugin/view).
 Alternatively, you can download it from GitHub and deploy it to your local repository. The following code snippet shows an
@@ -18,7 +18,7 @@ example on how to retrieve it from jcenter():
         }
 
         dependencies {
-            classpath 'eu.ihomeautomate.gradle:gradle-homeseer-plugin:0.1.0'
+            classpath 'eu.ihomeautomate.gradle:gradle-homeseer-plugin:0.2.0'
         }
     }
 
@@ -34,7 +34,7 @@ In case you want to use SNAPSHOT builds add the [JFrog OSS snapshot repository](
         }
 
         dependencies {
-            classpath 'eu.ihomeautomate.gradle:gradle-homeseer-plugin:0.1.1-SNAPSHOT'
+            classpath 'eu.ihomeautomate.gradle:gradle-homeseer-plugin:0.3.0-SNAPSHOT'
         }
     }
 
