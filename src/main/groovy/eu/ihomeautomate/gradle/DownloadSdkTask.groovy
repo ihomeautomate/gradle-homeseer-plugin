@@ -30,6 +30,11 @@ class DownloadSdkTask extends DefaultTask {
         assert getHomeseerSdkDownloadUrl() != null, 'homeseerSdkDownloadUrl must not be null'
         assert getExplodedSdkDirectory() != null, 'explodedSdkDirectory must not be null'
 
+        if (isUpToDate()) {
+            println "${getSdkHomePath()} available."
+            return
+        }
+
         if (!getExplodedSdkDirectory().exists()) {
             boolean success = getExplodedSdkDirectory().mkdirs()
 
@@ -101,12 +106,15 @@ class DownloadSdkTask extends DefaultTask {
         return "${getExplodedSdkDirectory().canonicalPath}/${getSdkHomeDirectoryName()}"
     }
 
+    boolean isUpToDate() {
+        def explodedSdkFolder = "${getExplodedSdkDirectory()}/${getSdkHomeDirectoryName()}"
+        def cacheFolder = new File(explodedSdkFolder)
+        return cacheFolder.exists() && cacheFolder.isDirectory() && (cacheFolder.list().length > 0)
+    }
+
     void configureUpToDateWhen() {
         outputs.upToDateWhen {
-            def explodedSdkFolder = "${getExplodedSdkDirectory()}/${getSdkHomeDirectoryName()}"
-            def cacheFolder = new File(explodedSdkFolder)
-
-            return cacheFolder.exists() && cacheFolder.isDirectory() && (cacheFolder.list().length > 0)
+            return isUpToDate()
         }
     }
 }
