@@ -22,6 +22,7 @@ import org.gradle.api.Project
 class HomeSeerPlugin implements Plugin<Project> {
     static final String HOMESEER_GROUP = 'HomeSeer'
     static final String HOMESEER_DOWNLOAD_SDK = 'homeseerDownloadSdk'
+    static final String HOMESEER_CLEAN_REFERENCES = 'homeseerCleanSdkReferences'
     static final String HOMESEER_COPY_REFERENCES = 'homeseerCopySdkReferences'
 
     void apply(Project project) {
@@ -30,6 +31,7 @@ class HomeSeerPlugin implements Plugin<Project> {
         project.extensions.create("homeseer", HomeSeerPluginExtension, project)
         configureDownloadSdk(project, getExplodedSdkDirectory(project))
         configureCopyReferences(project, getExplodedSdkDirectory(project))
+        configureCleanReferences(project)
     }
 
     static File getExplodedSdkDirectory(Project project) {
@@ -69,6 +71,21 @@ class HomeSeerPlugin implements Plugin<Project> {
                 .each { task ->
                     task.dependsOn copyHSReferencesTask
                 }
+            }
+        }
+    }
+
+    private void configureCleanReferences(Project project) {
+        project.afterEvaluate {
+            if (project.homeseer) {
+                CleanHSReferencesTask cleanHSReferencesTask = project.tasks.create(HOMESEER_CLEAN_REFERENCES, CleanHSReferencesTask)
+                cleanHSReferencesTask.description = "Clean HomeSeer references from folder '${project.homeseer.sdkReferencesTargetDirectory}'."
+                cleanHSReferencesTask.group = HOMESEER_GROUP
+                cleanHSReferencesTask.relativeTargetDirectory = project.homeseer.sdkReferencesTargetDirectory
+                cleanHSReferencesTask.configureUpToDateWhen()
+
+                // Task dependencies... find Xamarin:clean and add dependsOn
+                project.tasks.findByName("clean").dependsOn cleanHSReferencesTask
             }
         }
     }

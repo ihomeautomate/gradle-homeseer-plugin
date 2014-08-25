@@ -39,7 +39,7 @@ class CopyHSReferencesTask extends DefaultTask {
         project.copy {
             from ("${sourceFolder.canonicalPath}") {
                 include 'HomeSeerAPI.dll'
-                include 'HomeSeerUtil.dll'
+                /*include 'HomeSeerUtil.dll'*/
                 include 'Scheduler.dll'
                 include 'HSCF.dll'
             }
@@ -63,13 +63,14 @@ class CopyHSReferencesTask extends DefaultTask {
 
     void configureUpToDateWhen() {
         File sourceFolder = getSdkHome()
+
         inputs.files "${sourceFolder.canonicalPath}}/HomeSeerAPI.dll",
-                     "${sourceFolder.canonicalPath}}/HomeSeerUtil.dll",
+                     /*"${sourceFolder.canonicalPath}}/HomeSeerUtil.dll",*/
                      "${sourceFolder.canonicalPath}}/Scheduler.dll",
                      "${sourceFolder.canonicalPath}}/HSCF.dll"
 
         outputs.files "${targetDirectory.canonicalPath}/HomeSeerAPI.dll",
-                      "${targetDirectory.canonicalPath}/HomeSeerUtil.dll",
+                      /*"${targetDirectory.canonicalPath}/HomeSeerUtil.dll",*/
                       "${targetDirectory.canonicalPath}/Scheduler.dll",
                       "${targetDirectory.canonicalPath}/HSCF.dll"
     }
