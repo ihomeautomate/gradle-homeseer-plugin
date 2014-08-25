@@ -61,17 +61,42 @@ class CopyHSReferencesTask extends DefaultTask {
         return new File("${getExplodedSdkDirectory()}/${sourceFolderName}")
     }
 
-    void configureUpToDateWhen() {
+    boolean isUpToDate() {
         File sourceFolder = getSdkHome()
 
-        inputs.files "${sourceFolder.canonicalPath}}/HomeSeerAPI.dll",
-                     /*"${sourceFolder.canonicalPath}}/HomeSeerUtil.dll",*/
-                     "${sourceFolder.canonicalPath}}/Scheduler.dll",
-                     "${sourceFolder.canonicalPath}}/HSCF.dll"
+        File homeSeerAPITarget = new File("${targetDirectory.canonicalPath}/HomeSeerAPI.dll")
+        File schedulerTarget = new File("${targetDirectory.canonicalPath}/Scheduler.dll")
+        File hscfTarget = new File("${targetDirectory.canonicalPath}/HSCF.dll")
+        File homeSeerAPISource = new File("${sourceFolder.canonicalPath}/HomeSeerAPI.dll")
+        File schedulerSource = new File("${sourceFolder.canonicalPath}/Scheduler.dll")
+        File hscfSource = new File("${sourceFolder.canonicalPath}/HSCF.dll")
 
-        outputs.files "${targetDirectory.canonicalPath}/HomeSeerAPI.dll",
-                      /*"${targetDirectory.canonicalPath}/HomeSeerUtil.dll",*/
-                      "${targetDirectory.canonicalPath}/Scheduler.dll",
-                      "${targetDirectory.canonicalPath}/HSCF.dll"
+        if (!homeSeerAPITarget.exists() || !schedulerTarget.exists() || !hscfTarget.exists()) {
+            return false
+        }
+
+        ant.checksum(file: homeSeerAPITarget.canonicalPath, property: homeSeerAPITarget.canonicalPath)
+        ant.checksum(file: schedulerTarget.canonicalPath, property: schedulerTarget.canonicalPath)
+        ant.checksum(file: hscfTarget.canonicalPath, property: hscfTarget.canonicalPath)
+        ant.checksum(file: homeSeerAPISource.canonicalPath, property: homeSeerAPISource.canonicalPath)
+        ant.checksum(file: schedulerSource.canonicalPath, property: schedulerSource.canonicalPath)
+        ant.checksum(file: hscfSource.canonicalPath, property: hscfSource.canonicalPath)
+
+//        println "$homeSeerAPITarget.canonicalPath Checksum: ${ant.antProject.properties[homeSeerAPITarget.canonicalPath]}"
+//        println "$schedulerTarget.canonicalPath Checksum: ${ant.antProject.properties[schedulerTarget.canonicalPath]}"
+//        println "$hscfTarget.canonicalPath Checksum: ${ant.antProject.properties[hscfTarget.canonicalPath]}"
+//        println "$homeSeerAPISource.canonicalPath Checksum: ${ant.antProject.properties[homeSeerAPISource.canonicalPath]}"
+//        println "$schedulerSource.canonicalPath Checksum: ${ant.antProject.properties[schedulerSource.canonicalPath]}"
+//        println "$hscfSource.canonicalPath Checksum: ${ant.antProject.properties[hscfSource.canonicalPath]}"
+
+        return ant.antProject.properties[homeSeerAPITarget.canonicalPath] == ant.antProject.properties[homeSeerAPISource.canonicalPath] &&
+                ant.antProject.properties[schedulerTarget.canonicalPath] == ant.antProject.properties[schedulerSource.canonicalPath] &&
+                ant.antProject.properties[hscfTarget.canonicalPath] == ant.antProject.properties[hscfSource.canonicalPath]
+    }
+
+    void configureUpToDateWhen() {
+        outputs.upToDateWhen {
+            return isUpToDate()
+        }
     }
 }
