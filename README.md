@@ -18,7 +18,7 @@ example on how to retrieve it from jcenter():
         }
 
         dependencies {
-            classpath 'eu.ihomeautomate.gradle:gradle-homeseer-plugin:0.2.0'
+            classpath 'eu.ihomeautomate.gradle:gradle-homeseer-plugin:0.3.0'
         }
     }
 
@@ -34,7 +34,7 @@ In case you want to use SNAPSHOT builds add the [JFrog OSS snapshot repository](
         }
 
         dependencies {
-            classpath 'eu.ihomeautomate.gradle:gradle-homeseer-plugin:0.3.0-SNAPSHOT'
+            classpath 'eu.ihomeautomate.gradle:gradle-homeseer-plugin:0.4.0-SNAPSHOT'
         }
     }
 
@@ -59,6 +59,7 @@ The App Engine plugin defines the following tasks:
 
 * `homeseerDownloadSdk`: Downloads the HomeSeer SDK defined by the configuration `homeseerSdkDownloadUrl` and explodes the artifact into `~/.gradle/homeseer-sdk`.
 * `homeseerCopySdkReferences`: Copies the necessary HomeSeer SDK references to the target directory specified by the configuration `sdkReferencesTargetDirectory`.
+* `homeseerCleanSdkReferences`: Cleans HomeSeer SDK references from the target directory specified by the configuration `sdkReferencesTargetDirectory`.
 
 ## Convention properties
 
@@ -69,4 +70,5 @@ The HomeSeer plugin defines the following convention properties in the `homeseer
 
 ## Integration with other Gradle plugins
 * [xamarin-build-plugin](https://bintray.com/ihomeautomate/Gradle-Plugins/xamarin-gradle-plugins/view/read) is automatically applied. You can easily run tasks `buildDebug`, `buildRelease` or `buildAll`.
-  See [xamarin-build-plugin](https://github.com/ihomeautomate/xamarin-gradle-plugins) for detailed information on how to use the build tasks.
+  See [xamarin-build-plugin](https://github.com/ihomeautomate/xamarin-gradle-plugins) for detailed information on how to use the build tasks. The `build*` tasks are configured to depend on `homeseerCopySdkReferences` so you can have your HomeSeer-plugin-project easily compiled.
+  The `clean` task is automatically configured to depend on `homeseerCleanSdkReferences` for your convenience.
