@@ -43,7 +43,7 @@ Specify the target directory where the necessary HomeSeer SDK binary references 
 
     homeseer {
         // To use hslinux_zee binaries use:
-        homeseerSdkDownloadUrl 'http://www.homeseer.com/updates3/hslinux_zee_3_0_0_106.tar.gz'
+        homeseerSdkDownloadUrl 'http://www.homeseer.com/updates3/hslinux_zee_3_0_0_122.tar.gz'
         // To use hs3_linux binaries use :
         //homeseerSdkDownloadUrl = 'ftp://homeseer.com/pub/hs3_linux_3_0_0_94.tar.gz'
         // ... or don't specify homeseerSdkDownloadUrl at all (default)
