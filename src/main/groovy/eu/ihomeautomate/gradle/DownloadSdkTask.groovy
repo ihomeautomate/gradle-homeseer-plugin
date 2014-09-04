@@ -73,17 +73,24 @@ class DownloadSdkTask extends DefaultTask {
 
         } catch (InvalidUserDataException zip) {
             if (zip.getMessage().startsWith("Cannot expand TAR")) {
-                //println "HomeSeer can't seem to gzip properly? :-(. Let's try untar."
+                logger.info("First try expanding TAR failed, maybe file extension is incorrect. Let's try renaming to .tar and re-try.")
 
                 def newTarTarget = "${getExplodedSdkDirectory()}/${filename}.tar"
-                new File(downloadTargetFilePath).renameTo(newTarTarget)
-                project.copy {
-                    from project.tarTree(newTarTarget)
-                    into getSdkHomePath()
-                }
+                def newTarTargetFile = new File(downloadTargetFilePath)
+                logger.debug("Rename to '${newTarTargetFile.canonicalPath}'.")
+                if (newTarTargetFile.renameTo(newTarTarget)) {
+                    logger.debug("Rename to ${newTarTargetFile.canonicalPath} succeeded. Ready for second try.")
+                    project.copy {
+                        from project.tarTree(newTarTarget)
+                        into getSdkHomePath()
+                    }
 
-                if (new File(newTarTarget).exists()) {
-                    project.delete(newTarTarget)
+                    if (newTarTargetFile.exists()) {
+                        newTarTargetFile.delete(newTarTarget)
+                    }
+                } else {
+                    logger.debug("Rename to ${newTarTargetFile.canonicalPath} failed :-(.")
+                    throw zip;
                 }
             }
         }
