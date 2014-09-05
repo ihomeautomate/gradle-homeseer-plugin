@@ -18,7 +18,7 @@ example on how to retrieve it from jcenter():
         }
 
         dependencies {
-            classpath 'eu.ihomeautomate.gradle:gradle-homeseer-plugin:0.3.0'
+            classpath 'eu.ihomeautomate.gradle:gradle-homeseer-plugin:0.4.0'
         }
     }
 
@@ -34,7 +34,7 @@ In case you want to use SNAPSHOT builds add the [JFrog OSS snapshot repository](
         }
 
         dependencies {
-            classpath 'eu.ihomeautomate.gradle:gradle-homeseer-plugin:0.4.0-SNAPSHOT'
+            classpath 'eu.ihomeautomate.gradle:gradle-homeseer-plugin:0.5.0-SNAPSHOT'
         }
     }
 
