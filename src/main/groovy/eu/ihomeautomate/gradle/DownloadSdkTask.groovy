@@ -60,6 +60,7 @@ class DownloadSdkTask extends DefaultTask {
 
             // Cleanup
             if (downloadTargetFile.exists()) {
+                downloadTargetFile.setWritable(true); // WTF :-(
                 downloadTargetFile.delete()
             }
 
@@ -78,6 +79,7 @@ class DownloadSdkTask extends DefaultTask {
 
                 def newTarTarget = "${downloadTargetFilePath}.tar"
                 logger.debug("Renaming from '${downloadTargetFile.canonicalPath}' to '${newTarTarget}'.")
+                downloadTargetFile.setWritable(true); // WTF :-(
                 if (downloadTargetFile.renameTo(newTarTarget)) {
                     logger.debug("Rename to ${newTarTarget} succeeded. Ready for second untar try.")
                     project.copy {
