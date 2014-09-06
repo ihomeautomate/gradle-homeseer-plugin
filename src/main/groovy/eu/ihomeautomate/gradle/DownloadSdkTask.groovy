@@ -60,8 +60,9 @@ class DownloadSdkTask extends DefaultTask {
 
             // Cleanup
             if (downloadTargetFile.exists()) {
-                downloadTargetFile.setWritable(true); // WTF :-(
-                downloadTargetFile.delete()
+                if (!downloadTargetFile.delete()) {
+                    logger.warn("Oops, failed to delete downloaded file '${downloadTargetFile.canonicalPath}'")
+                }
             }
 
             // Check for unnecessary directory structure(s).
@@ -77,34 +78,48 @@ class DownloadSdkTask extends DefaultTask {
             if (zip.getMessage().startsWith("Cannot expand TAR")) {
                 logger.info("First try expanding TAR failed, maybe file extension is incorrect. Let's try renaming to .tar and re-try.")
 
+                // Let's try to copy, we've experienced weird locks when renaming file @ windows :-(.
+                project.copy {
+                    from "${getExplodedSdkDirectory()}"
+                    into "${getExplodedSdkDirectory()}"
+                    include "${filename}"
+                    rename "${filename}", "${filename}.tar"
+                }
+
                 def newTarTarget = "${downloadTargetFilePath}.tar"
-                logger.debug("Renaming from '${downloadTargetFile.canonicalPath}' to '${newTarTarget}'.")
-                downloadTargetFile.setWritable(true); // WTF :-(
-                if (downloadTargetFile.renameTo(newTarTarget)) {
+                def newTarTargetFile = new File(newTarTarget)
+                if (newTarTargetFile.exists()) {
                     logger.debug("Rename to ${newTarTarget} succeeded. Ready for second untar try.")
                     project.copy {
                         from project.tarTree(newTarTarget)
                         into getSdkHomePath()
                     }
 
-                    def newTarTargetFile = new File(newTarTarget)
-                    if (newTarTargetFile.exists()) {
-                        logger.debug("Deleting downloaded file ${newTarTargetFile.canonicalPath}")
-                        if (newTarTargetFile.delete()) {
-                            logger.debug("Deleted downloaded file ${newTarTargetFile.canonicalPath}")
+                    logger.debug("Deleting downloaded file '${newTarTargetFile.canonicalPath}'")
+                    if (newTarTargetFile.delete()) {
+                        logger.debug("Deleted downloaded file '${newTarTargetFile.canonicalPath}'")
+                    } else {
+                        logger.warn("Failed to remove downloaded file '${newTarTargetFile.canonicalPath}'")
+                    }
+
+                    if (downloadTargetFile.exists()) {
+                        logger.debug("Deleting downloaded file '${downloadTargetFile.canonicalPath}'")
+                        if (downloadTargetFile.delete()) {
+                            logger.debug("Deleted downloaded file '${downloadTargetFile.canonicalPath}'")
                         } else {
-                            logger.warn("Failed deleting downloaded file ${newTarTargetFile.canonicalPath}")
+                            logger.warn("Failed to remove downloaded file '${downloadTargetFile.canonicalPath}'")
                         }
                     }
+
                 } else {
-                    logger.debug("Rename to ${newTarTarget} failed :-(.")
+                    logger.warn("Rename to ${newTarTarget} failed :-(.")
 
                     if (downloadTargetFile.exists()) {
                         logger.debug("Deleting downloaded file ${downloadTargetFile.canonicalPath}")
                         if (downloadTargetFile.delete()) {
                             logger.debug("Deleted downloaded file ${downloadTargetFile.canonicalPath}")
                         } else {
-                            logger.warn("Failed deleting downloaded file ${downloadTargetFile.canonicalPath}")
+                            logger.warn("Failed to delete downloaded file '${downloadTargetFile.canonicalPath}'")
                         }
                     }
 
