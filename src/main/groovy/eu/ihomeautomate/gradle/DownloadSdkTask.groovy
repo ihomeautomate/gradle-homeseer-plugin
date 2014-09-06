@@ -45,9 +45,10 @@ class DownloadSdkTask extends DefaultTask {
 
         def filename = getFilenameFromDownloadUrl()
         def downloadTargetFilePath = "${getExplodedSdkDirectory()}/${filename}"
+        def downloadTargetFile = new File(downloadTargetFilePath)
 
-        if (!new File(downloadTargetFilePath).exists()) {
-            println "Downloading '${getHomeseerSdkDownloadUrl()}' to '${downloadTargetFilePath}'"
+        if (!downloadTargetFile.exists()) {
+            println "Downloading '${getHomeseerSdkDownloadUrl()}' to '${downloadTargetFile.canonicalPath}'"
             ant.get(src: getHomeseerSdkDownloadUrl(), dest: downloadTargetFilePath, verbose: true, usetimestamp: true)
         }
 
@@ -58,8 +59,8 @@ class DownloadSdkTask extends DefaultTask {
             }
 
             // Cleanup
-            if (new File(downloadTargetFilePath).exists()) {
-                project.delete(downloadTargetFilePath)
+            if (downloadTargetFile.exists()) {
+                downloadTargetFile.delete()
             }
 
             // Check for unnecessary directory structure(s).
@@ -75,21 +76,36 @@ class DownloadSdkTask extends DefaultTask {
             if (zip.getMessage().startsWith("Cannot expand TAR")) {
                 logger.info("First try expanding TAR failed, maybe file extension is incorrect. Let's try renaming to .tar and re-try.")
 
-                def newTarTarget = "${getExplodedSdkDirectory()}/${filename}.tar"
-                def newTarTargetFile = new File(downloadTargetFilePath)
-                logger.debug("Rename to '${newTarTargetFile.canonicalPath}'.")
-                if (newTarTargetFile.renameTo(newTarTarget)) {
-                    logger.debug("Rename to ${newTarTargetFile.canonicalPath} succeeded. Ready for second try.")
+                def newTarTarget = "${downloadTargetFilePath}.tar"
+                logger.debug("Renaming from '${downloadTargetFile.canonicalPath}' to '${newTarTarget}'.")
+                if (downloadTargetFile.renameTo(newTarTarget)) {
+                    logger.debug("Rename to ${newTarTarget} succeeded. Ready for second untar try.")
                     project.copy {
                         from project.tarTree(newTarTarget)
                         into getSdkHomePath()
                     }
 
+                    def newTarTargetFile = new File(newTarTarget)
                     if (newTarTargetFile.exists()) {
-                        newTarTargetFile.delete(newTarTarget)
+                        logger.debug("Deleting downloaded file ${newTarTargetFile.canonicalPath}")
+                        if (newTarTargetFile.delete()) {
+                            logger.debug("Deleted downloaded file ${newTarTargetFile.canonicalPath}")
+                        } else {
+                            logger.warn("Failed deleting downloaded file ${newTarTargetFile.canonicalPath}")
+                        }
                     }
                 } else {
-                    logger.debug("Rename to ${newTarTargetFile.canonicalPath} failed :-(.")
+                    logger.debug("Rename to ${newTarTarget} failed :-(.")
+
+                    if (downloadTargetFile.exists()) {
+                        logger.debug("Deleting downloaded file ${downloadTargetFile.canonicalPath}")
+                        if (downloadTargetFile.delete()) {
+                            logger.debug("Deleted downloaded file ${downloadTargetFile.canonicalPath}")
+                        } else {
+                            logger.warn("Failed deleting downloaded file ${downloadTargetFile.canonicalPath}")
+                        }
+                    }
+
                     throw zip;
                 }
             }
