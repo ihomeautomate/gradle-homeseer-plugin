@@ -18,7 +18,7 @@ example on how to retrieve it from jcenter():
         }
 
         dependencies {
-            classpath 'eu.ihomeautomate.gradle:gradle-homeseer-plugin:0.4.0'
+            classpath 'eu.ihomeautomate.gradle:gradle-homeseer-plugin:0.4.1'
         }
     }
 
@@ -72,6 +72,9 @@ The HomeSeer plugin defines the following convention properties in the `homeseer
 * [xamarin-build-plugin](https://bintray.com/ihomeautomate/Gradle-Plugins/xamarin-gradle-plugins/view/read) is automatically applied. You can easily run tasks `buildDebug`, `buildRelease` or `buildAll`.
   See [xamarin-build-plugin](https://github.com/ihomeautomate/xamarin-gradle-plugins) for detailed information on how to use the build tasks. The `build*` tasks are configured to depend on `homeseerCopySdkReferences` so you can have your HomeSeer-plugin-project easily compiled.
   The `clean` task is automatically configured to depend on `homeseerCleanSdkReferences` for your convenience.
+  
+## xamarin-build-plugin (Windows)
+The `build*` tasks should also work on Windows. Be sure to customize the `xbuildPath`. See [xamarin-build-plugin](https://github.com/ihomeautomate/xamarin-gradle-plugins) for detailed information.
   
 ## Copyright and licensing
     
