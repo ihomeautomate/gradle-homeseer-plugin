@@ -38,14 +38,14 @@ In case you want to use SNAPSHOT builds add the [JFrog OSS snapshot repository](
         }
     }
 
-The plugin allows you to customize the HomeSeer SDK to download and use. By default it takes `hs3_linux_3_0_0_125` (current version).
+The plugin allows you to customize the HomeSeer SDK to download and use. By default it takes `hs3_linux_3_0_0_128` (current version).
 Specify the target directory where the necessary HomeSeer SDK binary references are copied to by using `sdkReferencesTargetDirectory`, relative to the project directory.
 
     homeseer {
         // To use hslinux_zee binaries use:
-        homeseerSdkDownloadUrl 'http://www.homeseer.com/updates3/hslinux_zee_3_0_0_125.tar.gz'
+        homeseerSdkDownloadUrl 'http://www.homeseer.com/updates3/hslinux_zee_3_0_0_128.tar.gz'
         // To use hs3_linux binaries use :
-        //homeseerSdkDownloadUrl = 'http://homeseer.com/updates3/hs3_linux_3_0_0_125.tar.gz'
+        //homeseerSdkDownloadUrl = 'ftp://ftp.homeseer.com/updates/Beta/hs3_linux_3_0_0_128.tar.gz'
         // ... or don't specify homeseerSdkDownloadUrl at all (default)
                     
         // Target directory where the plugin copies Scheduler.dll, HSCF.dll, HomeSeerAPI.dll
@@ -65,7 +65,7 @@ The App Engine plugin defines the following tasks:
 
 The HomeSeer plugin defines the following convention properties in the `homeseer` closure:
 
-* `homeseerSdkDownloadUrl`: HomeSeer SDK URL to download and explode. Default is `http://homeseer.com/updates3/hs3_linux_3_0_0_125.tar.gz`.
+* `homeseerSdkDownloadUrl`: HomeSeer SDK URL to download and explode. Default is `ftp://ftp.homeseer.com/updates/Beta/hs3_linux_3_0_0_128.tar.gz`.
 * `sdkReferencesTargetDirectory`: Directory where the necessary SDK references will be copied to (defaults to `References`).
 
 ## Integration with other Gradle plugins
