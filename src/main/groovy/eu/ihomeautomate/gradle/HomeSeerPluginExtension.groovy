@@ -18,7 +18,7 @@ package eu.ihomeautomate.gradle
 import org.gradle.api.Project
 
 class HomeSeerPluginExtension {
-    String homeseerSdkDownloadUrl = "ftp://ftp.homeseer.com/updates/Beta/hs3_linux_3_0_0_128.tar.gz"
+    String homeseerSdkDownloadUrl = "http://homeseer.com/updates3/hs3_linux_3_0_0_143.tar.gz"
     String sdkReferencesTargetDirectory = "References"
 
     private Project project
