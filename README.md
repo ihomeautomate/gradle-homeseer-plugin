@@ -78,7 +78,7 @@ The `build*` tasks should also work on Windows. Be sure to customize the `xbuild
   
 ## Copyright and licensing
     
-Code and documentation copyright 2014 [iHomeAutomate](http://www.iHomeAutomate.eu). Code released under the [Apache-2.0 license](LICENSE.txt).
+Code and documentation copyright 2014-2015 [iHomeAutomate](http://www.iHomeAutomate.eu). Code released under the [Apache-2.0 license](LICENSE.txt).
     
 ## Social media
 
