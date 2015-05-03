@@ -65,7 +65,7 @@ The App Engine plugin defines the following tasks:
 
 The HomeSeer plugin defines the following convention properties in the `homeseer` closure:
 
-* `homeseerSdkDownloadUrl`: HomeSeer SDK URL to download and explode. Default is `http://homeseer.com/updates3/hs3_linux_3_0_0_143.tar.gz`.
+* `homeseerSdkDownloadUrl`: HomeSeer SDK URL to download and explode. Default is `http://www.homeseer.com/updates3/hslinux_hs3_3_0_0_171.tar.gz`.
 * `sdkReferencesTargetDirectory`: Directory where the necessary SDK references will be copied to (defaults to `References`).
 
 ## Integration with other Gradle plugins
