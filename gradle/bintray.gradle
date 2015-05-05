@@ -20,12 +20,12 @@ bintray {
         licenses = ['Apache-2.0']
         labels = ['C#', 'Mono', 'HomeSeer', 'Gradle']
         publicDownloadNumbers = false
-        attributes= ['More info': 'http://www.ihomeautomate.eu']
+        attributes= ['More info': 'http://www.ihomeautomate.com']
 
         version {
             name = attr 'version'
             vcsTag = attr 'version'
-            attributes = ['More info': 'http://www.ihomeautomate.eu']
+            attributes = ['More info': 'http://www.ihomeautomate.com']
         }
     }
 }
