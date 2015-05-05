@@ -1,6 +1,3 @@
-// configuration of the Maven artifacts
-apply plugin: 'maven-publish'
-
 // add javadoc/source jar tasks as artifacts
 artifacts {
     archives sourcesJar, javadocJar

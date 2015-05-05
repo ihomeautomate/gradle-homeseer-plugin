@@ -1,5 +1,3 @@
-apply plugin: 'groovy'
-
 compileGroovy.options.encoding = 'UTF-8'
 
 // custom tasks for creating source/javadoc jars

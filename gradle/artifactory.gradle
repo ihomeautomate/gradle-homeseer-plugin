@@ -1,7 +1,3 @@
-// handles distribution of snapshots to Artifactory (oss.jfrog.org)
-
-apply plugin: "com.jfrog.artifactory"
-
 artifactory {
     contextUrl = 'http://oss.jfrog.org/artifactory'
     publish {

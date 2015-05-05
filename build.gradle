@@ -1,4 +1,20 @@
-apply plugin: 'idea'
+buildscript {
+    repositories {
+//        mavenLocal()
+        jcenter()
+    }
+}
+
+plugins {
+    id 'idea'
+    id 'groovy'
+    id 'maven-publish'
+
+    id "com.jfrog.bintray" version "1.2" // Handles publication of distributions to Bintray
+    id "com.jfrog.artifactory" version "3.1.0" // Handles distribution of snapshots to Artifactory (oss.jfrog.org)
+    id "com.github.hierynomus.license" version "0.11.0" // Scan and adapt source files to include header
+}
+
 apply from: 'gradle/credentials.gradle'
 apply from: 'gradle/compile.gradle'
 apply from: 'gradle/publishing.gradle'
@@ -6,17 +22,6 @@ apply from: 'gradle/bintray.gradle'
 apply from: 'gradle/artifactory.gradle'
 apply from: 'gradle/license.gradle'
 
-buildscript {
-    repositories {
-//        mavenLocal()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
-        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:3.0.1'
-        classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0'
-    }
-}
 
 repositories {
 //    maven { /* For use of snapshots */
@@ -41,7 +46,7 @@ task release {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.0'
+    gradleVersion = '2.3'
 }
 
 //task showClasspath << {

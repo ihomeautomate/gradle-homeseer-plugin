@@ -1,7 +1,3 @@
-// Handles publication of distributions to Bintray
-
-apply plugin: 'com.jfrog.bintray'
-
 def attr = { String name -> project."$name" }
 
 bintray {
