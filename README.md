@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ihomeautomate/gradle-homeseer-plugin.png?branch=master)](https://travis-ci.org/ihomeautomate/gradle-homeseer-plugin)
 [![Maintainer Status](http://stillmaintained.com/ihomeautomate/gradle-homeseer-plugin.png)](http://stillmaintained.com/ihomeautomate/gradle-homeseer-plugin)
+[![Download](https://api.bintray.com/packages/ihomeautomate/Gradle-Plugins/gradle-homeseer-plugin/images/download.svg) ](https://bintray.com/ihomeautomate/Gradle-Plugins/gradle-homeseer-plugin/_latestVersion)
 
 The plugin provides tasks for downloading [HomeSeer SDK](http://homeseer.com/support/homeseer/HS3/SDK/default.htm) versions and managing HomeSeer (plugin) projects.
 
